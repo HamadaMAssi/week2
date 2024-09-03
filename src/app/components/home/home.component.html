@@ -1,0 +1,29 @@
+<main class="py-4 py-md-5">
+  <section class="container">
+    <div class="row justify-content-between">
+      <!-- Search container -->
+      <div class="col-xl-5 col-md-6 col-12">
+        <app-input-with-icon></app-input-with-icon>
+      </div>
+      <!-- dropdown for filter  -->
+      <div class="col-xl-2 col-lg-3 col-md-4 col-6 mt-4 mb-2 my-md-0">
+        <app-dropdown></app-dropdown>
+      </div>
+    </div>
+    <!-- countries container -->
+    <div class="py-4 py-md-5 px-5 px-md-0" id="countries">
+      @for (country of countries; track country.name) {
+      <app-card
+        [flagSrc]="country.flags?.svg ?? ''"
+        [flagAlt]="
+          country.flags?.alt ?? 'Flag of ' + (country.name?.common ?? 'Unknown')
+        "
+        [name]="country.name?.common ?? 'Unknown Country'"
+        [population]="country.population ?? 'Unknown Population'"
+        [region]="country.region ?? 'Unknown Region'"
+        [capital]="country.capital?.[0] ?? 'Unknown Capital'"
+      ></app-card>
+      }
+    </div>
+  </section>
+</main>

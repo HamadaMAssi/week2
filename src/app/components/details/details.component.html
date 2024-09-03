@@ -1,0 +1,80 @@
+@if (country){
+<main class="container large-y-padding details-page">
+  <button
+    class="btn btn-light btn-custom shadow-custom border-0 px-4 py-1 fs-5 d-flex align-items-center gap-2"
+    id="back"
+    (click)="goBack()"
+  >
+    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+      <path
+        d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+      />
+    </svg>
+    <span>Back</span>
+  </button>
+  <section class="row justify-content-between large-y-padding gx-5">
+    <img
+      class="col-12 col-lg-5 object-fit-cover country-flag"
+      src="{{ flagSvg }}"
+      alt="{{ flagAlt }}"
+    />
+    <article
+      class="col-12 col-lg-6 d-flex flex-column justify-content-evenly data-container"
+    >
+      <h2 class="fs-1 font-bold country-name">{{ name }}</h2>
+      <div class="row justify-content-between">
+        <div class="col-12 col-md-5 my-3 my-md-0">
+          <ul class="list-unstyled d-flex flex-column gap-2">
+            <li>
+              <span class="fw-bold">Native Name: </span>
+              <span class="country-native-name">{{ nativeName }}</span>
+            </li>
+            <li>
+              <span class="fw-bold">Population: </span>
+              <span class="country-population">{{ population.toLocaleString() }}</span>
+            </li>
+            <li>
+              <span class="fw-bold">Region: </span>
+              <span class="country-region">{{ region }}</span>
+            </li>
+            <li>
+              <span class="fw-bold">Sub Region: </span>
+              <span class="country-sub-region">{{ subregion }}</span>
+            </li>
+            <li>
+              <span class="fw-bold">Capital: </span>
+              <span class="country-capital">{{ capital }}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-5">
+          <ul class="list-unstyled d-flex flex-column gap-2">
+            <li>
+              <span class="fw-bold">Top Level Domain: </span>
+              <span class="country-tld">{{ domain }}</span>
+            </li>
+            <li>
+              <span class="fw-bold">Currencies: </span>
+              <span class="country-currencies">{{ currencies }}</span>
+            </li>
+            <li>
+              <span class="fw-bold">Languages: </span
+              ><span class="country-languages">{{ languages }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      @if (borders) {
+        <div class="d-flex gap-3 align-items-center flex-wrap border-countries">
+          <span class="fw-bold">Border Countries: </span>
+          @for (border of borders; track border){
+          <button type="button" class="btn btn-custom shadow-custom py-1 px-3">
+            {{ border }}
+          </button>
+          }
+        </div>
+      }
+    </article>
+  </section>
+</main>
+}
