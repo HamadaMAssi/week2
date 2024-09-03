@@ -1,0 +1,26 @@
+<a
+  class="text-decoration-none"
+  [routerLink]="['/details', name]"
+  routerLinkActive="router-link-active"
+>
+  <div class="card border-0 rounded">
+    <img
+      src="{{ flagSrc }}"
+      class="card-img-top"
+      alt="{{ flagAlt }} country image"
+    />
+    <div class="card-body py-4 px-4">
+      <h5 class="card-title fw-bold mb-3 text-truncate">{{ name }}</h5>
+      <p class="card-text mb-1 text-truncate">
+        <strong>Population: </strong>
+        <span>{{ population.toLocaleString() }}</span>
+      </p>
+      <p class="card-text mb-1 text-truncate">
+        <strong>Region: </strong> <span>{{ region }}</span>
+      </p>
+      <p class="card-text mb-3 text-truncate">
+        <strong>Capital: </strong> <span>{{ capital }}</span>
+      </p>
+    </div>
+  </div>
+</a>
