@@ -5,13 +5,13 @@
     data-bs-toggle="dropdown"
     aria-expanded="false"
   >
-    Filter by Region
+    {{ selectedRegion || 'Filter by Region'}}
   </button>
   <ul class="dropdown-menu w-100 border-0 shadow-sm">
-    <li><a class="dropdown-item" href="#">Africa</a></li>
-    <li><a class="dropdown-item" href="#">America</a></li>
-    <li><a class="dropdown-item" href="#">Asia</a></li>
-    <li><a class="dropdown-item" href="#">Europe</a></li>
-    <li><a class="dropdown-item" href="#">Oceania</a></li>
+    <li><button class="dropdown-item" type="button" (click)="changeRegion('Africa')">Africa</button></li>
+    <li><button class="dropdown-item" type="button" (click)="changeRegion('America')">America</button></li>
+    <li><button class="dropdown-item" type="button" (click)="changeRegion('Asia')">Asia</button></li>
+    <li><button class="dropdown-item" type="button" (click)="changeRegion('Europe')">Europe</button></li>
+    <li><button class="dropdown-item" type="button" (click)="changeRegion('Oceania')">Oceania</button></li>
   </ul>
 </div>

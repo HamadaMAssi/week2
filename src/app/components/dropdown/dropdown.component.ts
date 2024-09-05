@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-dropdown',
@@ -8,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrl: './dropdown.component.css'
 })
 export class DropdownComponent {
+
+  @Output() filterValue = new EventEmitter<string>();
+  selectedRegion = '';
+
+  changeRegion(region: string){
+    this.selectedRegion = region;
+    this.filterValue.emit(region);
+  }
 
 }
