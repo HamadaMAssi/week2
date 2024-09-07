@@ -16,18 +16,22 @@
     <img
       class="col-12 col-lg-5 object-fit-fill country-flag"
       src="{{ country.flags.svg || '' }}"
-      alt="{{ country.flags.alt || '' }}"
+      alt="{{ country.flags.alt || 'Country Flag' }}"
     />
     <article
       class="col-12 col-lg-6 d-flex flex-column justify-content-evenly data-container"
     >
-      <h2 class="fs-1 font-bold country-name">{{ country.name.common || 'Unknown Country' }}</h2>
+      <h2 class="fs-1 font-bold country-name">
+        {{ country.name.common || "Unknown Country" }}
+      </h2>
       <div class="row justify-content-between">
         <div class="col-12 col-md-5 my-3 my-md-0">
           <ul class="list-unstyled d-flex flex-column gap-2">
             <li>
               <span class="fw-bold">Native Name: </span>
-              <span class="country-native-name">{{ getNativeName() }}</span>
+              <span class="country-native-name">{{
+                getNativeName() || "Unknown"
+              }}</span>
             </li>
             <li>
               <span class="fw-bold">Population: </span>
@@ -37,15 +41,21 @@
             </li>
             <li>
               <span class="fw-bold">Region: </span>
-              <span class="country-region">{{ country.region || '' }}</span>
+              <span class="country-region">{{
+                country.region || "Unknown"
+              }}</span>
             </li>
             <li>
               <span class="fw-bold">Sub Region: </span>
-              <span class="country-sub-region">{{ country.subregion || '' }}</span>
+              <span class="country-sub-region">{{
+                country.subregion || "Unknown"
+              }}</span>
             </li>
             <li>
               <span class="fw-bold">Capital: </span>
-              <span class="country-capital">{{ country.capital || '' }}</span>
+              <span class="country-capital">{{
+                country.capital || "Unknown"
+              }}</span>
             </li>
           </ul>
         </div>
@@ -53,15 +63,19 @@
           <ul class="list-unstyled d-flex flex-column gap-2">
             <li>
               <span class="fw-bold">Top Level Domain: </span>
-              <span class="country-tld">{{ country.tld || '' }}</span>
+              <span class="country-tld">{{ country.tld || "Unknown" }}</span>
             </li>
             <li>
               <span class="fw-bold">Currencies: </span>
-              <span class="country-currencies">{{ getCurrencies() || ''}}</span>
+              <span class="country-currencies">{{
+                getCurrencies() || "Unknown"
+              }}</span>
             </li>
             <li>
               <span class="fw-bold">Languages: </span
-              ><span class="country-languages">{{ getLanguages() || '' }}</span>
+              ><span class="country-languages">{{
+                getLanguages() || "Unknown"
+              }}</span>
             </li>
           </ul>
         </div>
@@ -71,7 +85,7 @@
         <span class="fw-bold">Border Countries: </span>
         @for (border of country.borders; track border){
         <button type="button" class="btn btn-custom shadow-custom py-1 px-3">
-          {{ border || '' }}
+          {{ border || "Unknown" }}
         </button>
         }
       </div>
