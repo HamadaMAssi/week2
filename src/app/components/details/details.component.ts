@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { Country } from '../../models/country.model';
+import { CountryService } from '../../services/country.service';
 
 @Component({
   selector: 'app-details',
@@ -11,81 +13,50 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './details.component.css',
 })
 export class DetailsComponent {
-  country: any;
-
-  flagSvg = '';
-  flagAlt = '';
-  name = '';
-  nativeName = '';
-  population = 0;
-  region = '';
-  subregion = '';
-  capital = '';
-  domain = '';
-  currencies = '';
-  languages = '';
-  borders = '';
+  countryName: string = '';
+  country: Country | undefined;
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private http: HttpClient
+    private http: HttpClient,
+    private countryService: CountryService
   ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
-      const countryName = params.get('name');
-      if (countryName) {
-        this.fetchCountryDetails(countryName);
+      this.countryName = params.get('name') || '';
+      if (this.countryName) {
+        this.fetchCountryDetails();
       }
     });
   }
 
-  fetchCountryDetails(name: string) {
-    const apiUrl = `https://restcountries.com/v3.1/name/${name}`;
-    this.http.get<any>(apiUrl).subscribe({
-      next: ([response]) => this.setCountryDetails(response),
-      error: (error) => {
-        console.error('Error fetching country details:', error);
-      },
-    });
+  async fetchCountryDetails(): Promise<void> {
+    this.country = (
+      await this.countryService.getCountryByNameAsync(this.countryName)
+    )[0];
   }
 
-  private setCountryDetails(country: any): void {
-    if (!country) return;
-
-    this.country = country;
-    this.flagSvg = country.flags?.svg ?? '';
-    this.flagAlt = country.flags?.alt ?? '';
-    this.name = country.name?.common ?? 'Unknown Country';
-    this.nativeName = this.getNativeName(country);
-    this.population = country.population ?? 0;
-    this.region = country.region ?? '';
-    this.subregion = country.subregion ?? '';
-    this.capital = country.capital?.[0] ?? '';
-    this.domain = country.tld?.[0] ?? '';
-    this.currencies = this.getCurrencies(country);
-    this.languages = this.getLanguages(country);
-    this.borders = country.borders ?? '';
-  }
-
-  private getNativeName(country: any): string {
-    const nativeNames = country.name?.nativeName;
+  getNativeName(): string {
+    const nativeNames = this.country?.name?.nativeName;
     return nativeNames
       ? nativeNames[Object.keys(nativeNames)[0]]?.official ?? ''
       : '';
   }
 
-  private getCurrencies(country: any): string {
-    return country.currencies
-      ? Object.values(country.currencies)
+  getCurrencies(): string {
+    return this.country?.currencies
+      ? Object.values(this.country.currencies)
           .map((c: any) => c.name)
           .join(', ')
       : '';
   }
 
-  private getLanguages(country: any): string {
-    return country.languages ? Object.values(country.languages).join(', ') : '';
+  getLanguages(): string {
+    return this.country?.languages
+      ? Object.values(this.country.languages).join(', ')
+      : '';
   }
 
   goBack() {

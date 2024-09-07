@@ -9,14 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppHeaderComponent implements OnInit {
   buttonText = 'Dark mode';
-  mode= 'light';
+  mode = 'light';
 
   ngOnInit(): void {
     this.mode = localStorage.getItem('mode') || 'light';
     this.applyMode();
   }
 
-  applyMode():void{
+  applyMode(): void {
     if (this.mode === 'light') {
       document.body.removeAttribute('data-theme');
       this.buttonText = 'Dark Mode';

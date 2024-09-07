@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CardComponent } from '../card/card.component';
 import { CommonModule } from '@angular/common';
+import { Country } from '../../models/country.model';
+import { CountryService } from '../../services/country.service';
 
 @Component({
   selector: 'app-home',
@@ -20,61 +22,46 @@ import { CommonModule } from '@angular/common';
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
-  countries: any[] = [];
-  filteredCountries: any[] = [];
+  countries: Country[] = [];
+  filteredCountries: Country[] = [];
   searchValue = '';
   regionFilter = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private countryService: CountryService) {}
 
   ngOnInit(): void {
     this.getCountries();
   }
 
-  getCountries(): void {
-    this.http.get<any[]>('https://restcountries.com/v3.1/all').subscribe(
-      (data) => {
-        this.countries = data;
-        this.applyFilter();
-      },
-      (error) => {
-        console.error('Error fetching countries:', error);
-      }
-    );
+  async getCountries(): Promise<void> {
+    this.countries = await this.countryService.getCountriesAsync();
+    this.applyFilter();
   }
 
-  getCountriesByName(): void {
-    this.http
-      .get<any[]>(`https://restcountries.com/v3.1/name/${this.searchValue}`)
-      .subscribe(
-        (data) => {
-          this.countries = data;
-          this.applyFilter();
-        },
-        (error) => {
-          console.error('Error fetching countries:', error);
-        }
-      );
+  async getCountriesByName(): Promise<void> {
+    if(this.searchValue){
+      this.countries = await this.countryService.getCountryByNameAsync(this.searchValue);
+    }else{
+      await this.getCountries();
+    }
+    this.applyFilter();
   }
 
   searchByApi(): void {
-    if (!this.searchValue) {
-      this.getCountries();
-    } else {
       this.getCountriesByName();
-    }
   }
-  handleSearchChange(input: string) {
+
+  handleSearchChange(input: string): void {
     this.searchValue = input;
     this.searchByApi();
   }
 
-  handleFilterChange(region: string) {
+  handleFilterChange(region: string): void {
     this.regionFilter = region;
     this.applyFilter();
   }
 
-  applyFilter() {
+  applyFilter(): void {
     this.filteredCountries = this.regionFilter
       ? this.countries?.filter((country) =>
           country.region?.includes(this.regionFilter)
