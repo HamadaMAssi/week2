@@ -45,7 +45,7 @@
             </li>
             <li>
               <span class="fw-bold">Capital: </span>
-              <span class="country-capital">{{ country.capital?.[0] || '' }}</span>
+              <span class="country-capital">{{ country.capital || '' }}</span>
             </li>
           </ul>
         </div>
@@ -53,7 +53,7 @@
           <ul class="list-unstyled d-flex flex-column gap-2">
             <li>
               <span class="fw-bold">Top Level Domain: </span>
-              <span class="country-tld">{{ country.tld?.[0] || '' }}</span>
+              <span class="country-tld">{{ country.tld || '' }}</span>
             </li>
             <li>
               <span class="fw-bold">Currencies: </span>
