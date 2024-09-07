@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { DropdownComponent } from '../dropdown/dropdown.component';
-import { InputWithIconComponent } from '../input-with-icon/input-with-icon.component';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { SearchComponent } from './components/search/search.component';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { CardComponent } from '../card/card.component';
+import { CardComponent } from './components/card/card.component';
 import { CommonModule } from '@angular/common';
-import { Country } from '../../models/country.model';
-import { CountryService } from '../../services/country.service';
+import { Country } from '../../shared/models/country.model';
+import { CountryService } from '../../shared/services/country.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     DropdownComponent,
-    InputWithIconComponent,
+    SearchComponent,
     CardComponent,
     CommonModule,
     FormsModule,

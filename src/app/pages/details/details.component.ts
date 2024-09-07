@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Country } from '../../models/country.model';
-import { CountryService } from '../../services/country.service';
+import { Country } from '../../shared/models/country.model';
+import { CountryService } from '../../shared/services/country.service';
 
 @Component({
   selector: 'app-details',

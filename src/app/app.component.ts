@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { AppHeaderComponent } from "./components/app-header/app-header.component";
+import { AppHeaderComponent } from "./shared/components/header/app-header.component";
 import { CommonModule } from '@angular/common';
 
 @Component({
