@@ -14,6 +14,9 @@
     </div>
     <!-- countries container -->
     <div class="py-4 py-md-5 px-5 px-md-0" id="countries">
+      @if (filteredCountries.length === 0) {
+        <p class="fw-medium fs-2">Country not found</p>
+      }
       @for (country of filteredCountries; track country.name) {
       <app-card
         [flagSrc]="country?.flags?.svg ?? ''"
